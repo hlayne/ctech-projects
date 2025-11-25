@@ -6,7 +6,7 @@
   vars:
     ansible_user: "wifio​ps"
     ansible_password: "atll0vesWIFI"
-    ansible_become: yes
+    ansible_become: no
     ansible_become_method: enable
     ansible_become_password: "atll0vesWIFI"
     ansible_network_os: cisco.ios.ios
