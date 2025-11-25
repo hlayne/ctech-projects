@@ -1,7 +1,7 @@
 #connect to device, gather ios facts, print installed software version
 ---
 - name: Check Installed Software Version
-  hosts: All
+  hosts: all
   gather_facts: false
 
   tasks:
