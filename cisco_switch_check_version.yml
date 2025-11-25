@@ -1,0 +1,24 @@
+#connect to device, gather ios facts, print installed software version
+---
+- name: Check Installed Software Version
+  hosts: All
+  gather_facts: false
+
+  tasks:
+    - name: Gather device facts
+      cisco.ios.ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - name: Display installed software version
+      ansible.builtin.debug:
+        msg: "Installed software version is {{ ios_facts.ansible_facts.ansible_net_version }}"
+
+    - name: show logged in users
+      cisco.ios.ios_command:
+        commands: "show users"
+      register: show_users
+
+    - name: Display logged in users
+      ansible.builtin.debug:
+        var: show_users.stdout_lines[0]
