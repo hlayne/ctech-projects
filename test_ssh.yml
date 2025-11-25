@@ -1,0 +1,33 @@
+---
+- name: Cisco Direct Credential Connectivity Test
+  hosts: all
+  gather_facts: no
+
+  vars:
+    ansible_user: "wifio​ps"
+    ansible_password: "atll0vesWIFI"
+    ansible_become: yes
+    ansible_become_method: enable
+    ansible_become_password: "atll0vesWIFI"
+    ansible_network_os: cisco.ios.ios
+    ansible_connection: network_cli
+    ansible_ssh_transfer_method: scp
+
+  tasks:
+
+    - name: Test SSH login
+      ansible.netcommon.cli_command:
+        command: "show version | include IOS"
+      register: login_test
+
+    - debug:
+        msg: "SSH login success: {{ login_test.stdout }}"
+
+    - name: Test enable mode
+      ansible.netcommon.cli_command:
+        command: "show running-config | include hostname"
+        authorize: yes
+      register: enable_test
+
+    - debug:
+        msg: "Enable mode success: {{ enable_test.stdout }}"
