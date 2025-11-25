@@ -16,7 +16,6 @@
     - name: Test enable mode
       ansible.netcommon.cli_command:
         command: "show running-config | include hostname"
-        authorize: yes
       register: enable_test
 
     - debug:
