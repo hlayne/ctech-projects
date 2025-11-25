@@ -1,0 +1,26 @@
+---
+- name: Cisco Basic Device Check
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+
+    - name: Gather device facts
+      cisco.ios.ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - name: Display software version
+      ansible.builtin.debug:
+        msg: "Installed software version is {{ ios_facts.ansible_facts.ansible_net_version }}"
+
+    - name: Show logged-in users
+      cisco.ios.ios_command:
+        commands:
+          - show users
+      register: show_users
+
+    - name: Display logged-in users
+      ansible.builtin.debug:
+        var: show_users.stdout_lines
