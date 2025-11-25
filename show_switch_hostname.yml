@@ -1,0 +1,11 @@
+---
+- name: Show Hostname
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: show hostname
+      ansible.netcommon.cli_command:
+        command: "show running-config | include hostname"
+      register: enable_test
+    - debug:
+        msg: "Enable mode success: {{ enable_test.stdout }}"
